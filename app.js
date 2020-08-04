@@ -23,32 +23,50 @@ function immediateLoadEventListener() {
 
 immediateLoadEventListener();
 
+//* Reusable Code
+function createTodoElement(value) {
+  //? Creating li element
+  const li = document.createElement("li");
+
+  //? Add class to element li
+  li.className =
+    "todo-item list-group-item d-flex justify-content-between align-items-center mb-1";
+
+  //? Add children element to inside element li
+  li.appendChild(document.createTextNode(value));
+
+  //? Add delete button
+  const a = document.createElement("a");
+  //? Create properti to element a
+  a.href = "#";
+  a.className = "badge badge-danger delete-todo";
+  a.innerHTML = "Delete";
+
+  //? Add element a to children element li
+  li.appendChild(a);
+
+  //? Input element li to element todoList
+  todoList.appendChild(li);
+}
+
+function getItemFromLocalStorage() {
+  let todos;
+
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+
+  return todos;
+}
+
+//* CRUD To Do List
 function addTodo(e) {
   e.preventDefault();
 
   if (todoInput.value) {
-    //? Creating li element
-    const li = document.createElement("li");
-
-    //? Add class to element li
-    li.className =
-      "todo-item list-group-item d-flex justify-content-between align-items-center mb-1";
-
-    //? Add children element to inside element li
-    li.appendChild(document.createTextNode(todoInput.value));
-
-    //? Add delete button
-    const a = document.createElement("a");
-    //? Create properti to element a
-    a.href = "#";
-    a.className = "badge badge-danger delete-todo";
-    a.innerHTML = "Delete";
-
-    //? Add element a to children element li
-    li.appendChild(a);
-
-    //? Input element li to element todoList
-    todoList.appendChild(li);
+    createTodoElement(todoInput.value);
 
     //? Save todo to local storage
     addTodoLocalStorage(todoInput.value);
@@ -61,13 +79,7 @@ function addTodo(e) {
 }
 
 function addTodoLocalStorage(todoInputValue) {
-  let todos;
-
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
-  }
+  const todos = getItemFromLocalStorage();
 
   todos.push(todoInputValue);
 
@@ -75,37 +87,10 @@ function addTodoLocalStorage(todoInputValue) {
 }
 
 function getTodos() {
-  let todos;
-
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
-  }
+  const todos = getItemFromLocalStorage();
 
   todos.forEach((todo) => {
-    //? Creating li element
-    const li = document.createElement("li");
-
-    //? Add class to element li
-    li.className =
-      "todo-item list-group-item d-flex justify-content-between align-items-center mb-1";
-
-    //? Add children element to inside element li
-    li.appendChild(document.createTextNode(todo));
-
-    //? Add delete button
-    const a = document.createElement("a");
-    //? Create properti to element a
-    a.href = "#";
-    a.className = "badge badge-danger delete-todo";
-    a.innerHTML = "Delete";
-
-    //? Add element a to children element li
-    li.appendChild(a);
-
-    //? Input element li to element todoList
-    todoList.appendChild(li);
+    createTodoElement(todo);
   });
 }
 
