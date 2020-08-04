@@ -100,8 +100,22 @@ function deleteToDo(e) {
     if (confirm("Are you sure want to delete this task?")) {
       const parent = e.target.parentElement;
       parent.remove();
+      deleteTodoLocalStorage(parent)
     }
   }
+}
+
+function deleteTodoLocalStorage(deletedElement) {
+    const todos = getItemFromLocalStorage(); // delete element parent li
+
+    todos.forEach((todo, index) =>{
+        if (deletedElement.firstChild.textContent === todo) {
+            todos.splice(index, 1)
+        }
+    })
+
+    localStorage.setItem("todos", JSON.stringify(todos));
+    
 }
 
 function clearTodo() {
