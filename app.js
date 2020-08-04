@@ -100,26 +100,30 @@ function deleteToDo(e) {
     if (confirm("Are you sure want to delete this task?")) {
       const parent = e.target.parentElement;
       parent.remove();
-      deleteTodoLocalStorage(parent)
+      deleteTodoLocalStorage(parent);
     }
   }
 }
 
 function deleteTodoLocalStorage(deletedElement) {
-    const todos = getItemFromLocalStorage(); // delete element parent li
+  const todos = getItemFromLocalStorage(); // delete element parent li
 
-    todos.forEach((todo, index) =>{
-        if (deletedElement.firstChild.textContent === todo) {
-            todos.splice(index, 1)
-        }
-    })
+  todos.forEach((todo, index) => {
+    if (deletedElement.firstChild.textContent === todo) {
+      todos.splice(index, 1);
+    }
+  });
 
-    localStorage.setItem("todos", JSON.stringify(todos));
-    
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function clearTodo() {
   todoList.innerHTML = "";
+  clearTodosLocalStorage();
+}
+
+function clearTodosLocalStorage() {
+  localStorage.clear();
 }
 
 function filterTodo(e) {
