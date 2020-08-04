@@ -9,6 +9,8 @@ const clearButton = document.querySelector("#clear-todos");
 todoForm.addEventListener("submit", addTodo);
 //* Delete to do
 todoList.addEventListener("click", deleteToDo);
+//* Clear to do
+clearButton.addEventListener("click", clearTodo); 
 
 function addTodo(e) {
   e.preventDefault();
@@ -54,4 +56,8 @@ function deleteToDo(e) {
 
         }
     }
+}
+
+function clearTodo(e) {
+    todoList.innerHTML = ""
 }
