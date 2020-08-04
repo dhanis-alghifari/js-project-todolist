@@ -32,14 +32,19 @@ function addTodo(e) {
     //? Add element a to children element li
     li.appendChild(a);
 
-    // Input element li to element todoList
+    //? Input element li to element todoList
     todoList.appendChild(li)
+    //? cleaning text input form after input todo 
+    todoInput.value = ""
 }
 
 function deleteToDo(e) {
     e.preventDefault();
     if (e.target.classList.contains("delete-todo")) {
-        const parent = e.target.parentElement;
-        parent.remove();
+        if (confirm("Are you sure want to delete this task?")) {
+            const parent = e.target.parentElement;
+            parent.remove();
+
+        }
     }
 }
