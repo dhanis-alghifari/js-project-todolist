@@ -7,6 +7,8 @@ const clearButton = document.querySelector("#clear-todos");
 
 // *Add to do
 todoForm.addEventListener("submit", addTodo);
+//* Delete to do
+todoList.addEventListener("click", deleteToDo);
 
 function addTodo(e) {
   e.preventDefault();
@@ -32,4 +34,12 @@ function addTodo(e) {
 
     // Input element li to element todoList
     todoList.appendChild(li)
+}
+
+function deleteToDo(e) {
+    e.preventDefault();
+    if (e.target.classList.contains("delete-todo")) {
+        const parent = e.target.parentElement;
+        parent.remove();
+    }
 }
