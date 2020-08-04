@@ -12,30 +12,37 @@ todoList.addEventListener("click", deleteToDo);
 
 function addTodo(e) {
   e.preventDefault();
-    //? Creating li element  
-  const li = document.createElement("li");
-  
-  //? Add class to element li
-  li.className =
-    "list-group-item d-flex justify-content-between align-items-center mb-1";
 
-    //? Add children element to inside element li
-    li.appendChild(document.createTextNode(todoInput.value))
+  if (todoInput.value) {
+      
+      //? Creating li element  
+    const li = document.createElement("li");
+    
+    //? Add class to element li
+    li.className =
+      "list-group-item d-flex justify-content-between align-items-center mb-1";
+    
+      //? Add children element to inside element li
+      li.appendChild(document.createTextNode(todoInput.value))
+    
+      //? Add delete button
+      const a = document.createElement("a");
+      //? Create properti to element a
+      a.href = "#";
+      a.className = "badge badge-danger delete-todo";
+      a.innerHTML = "Delete";
+    
+      //? Add element a to children element li
+      li.appendChild(a);
+    
+      //? Input element li to element todoList
+      todoList.appendChild(li)
+      //? cleaning text input form after input todo 
+      todoInput.value = ""
+  } else {
+      alert("Please insert your task, cannot be empty task")
+  }
 
-    //? Add delete button
-    const a = document.createElement("a");
-    //? Create properti to element a
-    a.href = "#";
-    a.className = "badge badge-danger delete-todo";
-    a.innerHTML = "Delete";
-
-    //? Add element a to children element li
-    li.appendChild(a);
-
-    //? Input element li to element todoList
-    todoList.appendChild(li)
-    //? cleaning text input form after input todo 
-    todoInput.value = ""
 }
 
 function deleteToDo(e) {
